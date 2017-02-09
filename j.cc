@@ -29,8 +29,8 @@ class Field : FieldBase {
   Field(std::string name);
   void insert(T &val);
   std::map<std::string, Roaring *> &dict();
-  Roaring &roar() {
-    return *roar_;
+  Roaring *roar() {
+    return roar_;
   }
 };
 
