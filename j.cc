@@ -159,14 +159,24 @@ std::vector<GroupByResult> genGroupByResult(std::vector<std::string> &groupByKey
   return groups;
 }
 
+/// global fields
+Field<TIMESTAMP, int64_t> *timestamp;
+Field<DIMENSION, std::string> *publisher;
+Field<DIMENSION, std::string> *advertiser;
+Field<DIMENSION, std::string> *gender;
+Field<DIMENSION, std::string> *country;
+Field<BOOL, bool> *click;
+Field<METRIC_FLOAT, float> *price;
+
 int main(int argc, char *argv[]) {
-  Field<TIMESTAMP, int64_t> *timestamp = new Field<TIMESTAMP, int64_t>("timestamp");
-  Field<DIMENSION, std::string> *publisher = new Field<DIMENSION, std::string>("publisher");
-  Field<DIMENSION, std::string> *advertiser = new Field<DIMENSION, std::string>("advertiser");
-  Field<DIMENSION, std::string> *gender = new Field<DIMENSION, std::string>("gender");
-  Field<DIMENSION, std::string> *country = new Field<DIMENSION, std::string>("country");
-  Field<BOOL, bool> *click = new Field<BOOL, bool>("click");
-  Field<METRIC_FLOAT, float> *price = new Field<METRIC_FLOAT, float>("price");
+  timestamp = new Field<TIMESTAMP, int64_t>("timestamp");
+  publisher = new Field<DIMENSION, std::string>("publisher");
+  advertiser = new Field<DIMENSION, std::string>("advertiser");
+  gender = new Field<DIMENSION, std::string>("gender");
+  country = new Field<DIMENSION, std::string>("country");
+  click = new Field<BOOL, bool>("click");
+  price = new Field<METRIC_FLOAT, float>("price");
+
   std::map<std::string, FieldBase*> fields;
 
   fields["timestamp"] = (FieldBase*)timestamp;
