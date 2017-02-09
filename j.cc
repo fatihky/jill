@@ -1,4 +1,5 @@
 // g++ j.cc -o j -L/usr/local/lib -lroaring
+#include <iostream>
 #include <vector>
 #include <string>
 #include <array>
@@ -201,6 +202,20 @@ int main(int argc, char *argv[]) {
     groupByKeys.push_back("advertiser");
     groupByKeys.push_back("gender");
     groupByKeys.push_back("country");
+
+    groups = genGroupByResult(groupByKeys, fields);
+
+    for (std::vector< GroupByResult >::iterator it = groups.begin(); it != groups.end(); it++) {
+      const GroupByResult &gres = *it;
+      std::vector<std::string> key = gres.key;
+      for (std::vector<std::string>::iterator it2 = key.begin(); it2 != key.end(); it2++) {
+        std::cout << *it2;
+        if (it2 != key.end()) {
+          std::cout << ", ";
+        }
+      }
+      std::cout << std::endl;
+    }
   }
 
   return 0;
