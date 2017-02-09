@@ -137,7 +137,7 @@ class Roaring {
     }
 
     Roaring &operator&=(const Roaring *r) {
-        roaring_bitmap_and_inplace(roaring, r.roaring);
+        roaring_bitmap_and_inplace(roaring, r->roaring);
         return *this;
     }
 
