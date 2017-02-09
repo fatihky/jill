@@ -71,6 +71,7 @@ Field<TIMESTAMP, int64_t>::Field(std::string name):
 template <>
 Field<BOOL, bool>::Field(std::string name):
     type_(BOOL), name(name) {
+  roar_ = new Roaring();
   // switch (type) {
   //   case BOOL: {
   //     roar_ = new Roaring();
