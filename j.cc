@@ -138,7 +138,18 @@ static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::strin
   FieldBase *fieldRef = fields[key];
   Field<DIMENSION, std::string> *field = (Field<DIMENSION, std::string> *)fieldRef;
   std::map<std::string, Roaring *> &dict = field->dict();
-  for (std::map<std::string, Roaring *>::iterator it = dict.begin(); it != dict.end(); it++) {}
+  for (std::map<std::string, Roaring *>::iterator it = dict.begin(); it != dict.end(); it++) {
+    std::vector<std::string> groupKey = currKey;
+    groupKey.push_back(it->first);
+
+    if (genGroup) {
+      GroupByResult gres;
+      gres.key = groupKey;
+      groups.push_back(gres);
+    } else {
+      genGroups(groups, groupByKeys, fields, groupKey, index + 1);
+    }
+  }
 }
 
 std::vector<GroupByResult> genGroupByResult(std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields) {
