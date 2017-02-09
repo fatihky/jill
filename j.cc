@@ -21,13 +21,14 @@ class Field : FieldBase {
   std::string name;
   std::vector<T> vals;
   std::vector< std::vector<T> > mvals;
-  std::map<T, Roaring *> dict;
+  std::map<T, Roaring *> dict_;
   Roaring *roar_;
   int count_;
   FieldType type_;
  public:
   Field(std::string name);
   void insert(T &val);
+  std::map<std::string, Roaring *> &dict();
   Roaring &roar() {
     return *roar_;
   }
@@ -89,11 +90,11 @@ void Field<type, T>::insert(T &val) {
     } break;
     case DIMENSION: {
       Roaring *roar;
-      if (dict.count(val) > 0) {
-        roar = dict[val];
+      if (dict_.count(val) > 0) {
+        roar = dict_[val];
       } else {
         roar = new Roaring();
-        dict[val] = roar;
+        dict_[val] = roar;
       }
       roar->add(count_);
     } break;
@@ -102,6 +103,11 @@ void Field<type, T>::insert(T &val) {
   }
 
   count_++;
+}
+
+template<>
+std::map<std::string, Roaring *> &Field<DIMENSION, std::string>::dict() {
+  return dict_;
 }
 
 class DimensionField {
@@ -125,12 +131,16 @@ struct GroupByResult {
   Roaring roaring;
 };
 
-static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase&> &fields, std::vector<std::string> currKey, int index) {
+static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields, std::vector<std::string> currKey, int index) {
   bool genGroup = index == (groupByKeys.size() - 1);
   std::string key = groupByKeys[index];
+  FieldBase *fieldRef = fields[key];
+  Field<DIMENSION, std::string> *field = (Field<DIMENSION, std::string> *)fieldRef;
+  std::map<std::string, Roaring *> &dict = field->dict();
+  for (std::map<std::string, Roaring *>::iterator it = dict.begin(); it != dict.end(); it++) {}
 }
 
-std::vector<GroupByResult> genGroupByResult(std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase&> &fields) {
+std::vector<GroupByResult> genGroupByResult(std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields) {
   std::vector<GroupByResult> groups;
   genGroups(groups, groupByKeys, fields, std::vector<std::string>(), 0);
   return groups;
@@ -144,15 +154,15 @@ int main(int argc, char *argv[]) {
   Field<DIMENSION, std::string> *country = new Field<DIMENSION, std::string>("country");
   Field<BOOL, bool> *click = new Field<BOOL, bool>("click");
   Field<METRIC_FLOAT, float> *price = new Field<METRIC_FLOAT, float>("price");
-  std::map<std::string, FieldBase&> fields;
+  std::map<std::string, FieldBase*> fields;
 
-  fields["timestamp"] = (FieldBase&)timestamp;
-  fields["publisher"] = (FieldBase&)publisher;
-  fields["advertiser"] = (FieldBase&)advertiser;
-  fields["gender"] = (FieldBase&)gender;
-  fields["country"] = (FieldBase&)country;
-  fields["click"] = (FieldBase&)click;
-  fields["price"] = (FieldBase&)price;
+  fields["timestamp"] = (FieldBase*)timestamp;
+  fields["publisher"] = (FieldBase*)publisher;
+  fields["advertiser"] = (FieldBase*)advertiser;
+  fields["gender"] = (FieldBase*)gender;
+  fields["country"] = (FieldBase*)country;
+  fields["click"] = (FieldBase*)click;
+  fields["price"] = (FieldBase*)price;
 
   // select count(*) from logs where click = 1 group by country,gender
   {
