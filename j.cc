@@ -128,7 +128,7 @@ class Query {
 };
 
 struct GroupByResult {
-  std::string key;
+  std::vector<std::string> key;
   Roaring roaring;
 };
 
