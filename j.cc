@@ -230,7 +230,7 @@ int main(int argc, char *argv[]) {
       std::vector<std::string> key = gres.key;
       for (std::vector<std::string>::iterator it2 = key.begin(); it2 != key.end(); it2++) {
         std::cout << *it2;
-        if (it2 != key.end()) {
+        if (std::distance(it2, key.end()) != 1) {
           std::cout << ", ";
         }
       }
