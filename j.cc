@@ -168,6 +168,12 @@ Field<DIMENSION, std::string> *country;
 Field<BOOL, bool> *click;
 Field<METRIC_FLOAT, float> *price;
 
+void insert(std::string advertiser_, std::string gender_, std::string country_) {
+  advertiser->insert(advertiser_);
+  gender->insert(gender_);
+  country->insert(country_);
+}
+
 int main(int argc, char *argv[]) {
   timestamp = new Field<TIMESTAMP, int64_t>("timestamp");
   publisher = new Field<DIMENSION, std::string>("publisher");
@@ -186,6 +192,10 @@ int main(int argc, char *argv[]) {
   fields["country"] = (FieldBase*)country;
   fields["click"] = (FieldBase*)click;
   fields["price"] = (FieldBase*)price;
+
+  insert("google.com", "male", "UK");
+  insert("yahoo.com", "female", "US");
+  insert("google.com", "female", "US");
 
   // select count(*) from logs where click = 1 group by country,gender
   {
