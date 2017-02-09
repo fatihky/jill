@@ -136,6 +136,11 @@ class Roaring {
         return *this;
     }
 
+    Roaring &operator&=(const Roaring *r) {
+        roaring_bitmap_and_inplace(roaring, r.roaring);
+        return *this;
+    }
+
     /**
      * Compute the difference between the current bitmap and the provided
      * bitmap,
