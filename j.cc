@@ -133,29 +133,27 @@ struct GroupByResult {
   Roaring roaring;
 };
 
-static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields, std::vector<std::string> currKey, int index) {
+static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields, GroupByResult gres_, int index) {
   bool genGroup = index == (groupByKeys.size() - 1);
   std::string key = groupByKeys[index];
   FieldBase *fieldRef = fields[key];
   Field<DIMENSION, std::string> *field = (Field<DIMENSION, std::string> *)fieldRef;
   std::map<std::string, Roaring *> &dict = field->dict();
   for (std::map<std::string, Roaring *>::iterator it = dict.begin(); it != dict.end(); it++) {
-    std::vector<std::string> groupKey = currKey;
-    groupKey.push_back(it->first);
+    GroupByResult gres = gres_;
+    gres.key.push_back(it->first);
 
     if (genGroup) {
-      GroupByResult gres;
-      gres.key = groupKey;
       groups.push_back(gres);
     } else {
-      genGroups(groups, groupByKeys, fields, groupKey, index + 1);
+      genGroups(groups, groupByKeys, fields, gres, index + 1);
     }
   }
 }
 
 std::vector<GroupByResult> genGroupByResult(std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields) {
   std::vector<GroupByResult> groups;
-  genGroups(groups, groupByKeys, fields, std::vector<std::string>(), 0);
+  genGroups(groups, groupByKeys, fields, GroupByResult(), 0);
   return groups;
 }
 
