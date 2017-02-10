@@ -1,5 +1,7 @@
 /*
 A C++ header for Roaring Bitmaps.
+License: Apache 2.0
+For more information, see: https://github.com/RoaringBitmap/CRoaring/blob/master/LICENSE
 */
 #ifndef INCLUDE_ROARING_HH_
 #define INCLUDE_ROARING_HH_
