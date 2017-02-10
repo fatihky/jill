@@ -132,6 +132,12 @@ class GroupByResult {
  public:
   std::vector<std::string> key;
   Roaring roaring;
+  GroupByResult clone() {
+    GroupByResult gres;
+    gres.key = this->key;
+    gres.roaring = Roaring(this->roaring);
+    return gres;
+  }
 };
 
 static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::string> &groupByKeys, std::map<std::string, FieldBase*> &fields, GroupByResult gres_, int index) {
@@ -141,7 +147,7 @@ static void genGroups(std::vector<GroupByResult> &groups, std::vector<std::strin
   Field<DIMENSION, std::string> *field = (Field<DIMENSION, std::string> *)fieldRef;
   std::map<std::string, Roaring *> &dict = field->dict();
   for (std::map<std::string, Roaring *>::iterator it = dict.begin(); it != dict.end(); it++) {
-    GroupByResult gres = gres_;
+    GroupByResult gres = gres_.clone();
     gres.key.push_back(it->first);
 
     if (genGroup) {
