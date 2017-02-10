@@ -128,7 +128,8 @@ class Query {
   ~Query();
 };
 
-struct GroupByResult {
+class GroupByResult {
+ public:
   std::vector<std::string> key;
   Roaring roaring;
 };
