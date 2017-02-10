@@ -7,7 +7,7 @@ namespace table {
 
 template <>
 Field<TIMESTAMP, int64_t>::Field(std::string name):
-  	type_(TIMESTAMP), name(name) {
+  	type_(TIMESTAMP), name_(name) {
 }
 
 } // namespace table

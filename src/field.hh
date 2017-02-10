@@ -23,7 +23,7 @@ template <FieldType, typename T>
 class Field : FieldBase {
  private:
  	// name of the field
-  std::string name;
+  std::string name_;
   // vector of values stored in the field
   std::vector<T> vals;
   // multi value fields(ex: tags)
@@ -40,6 +40,9 @@ class Field : FieldBase {
  public:
  	// public methods
   Field(std::string name);
+  std::string &name() {
+    return name_;
+  }
 
   // add new data to the field
   void insert(T &val);
