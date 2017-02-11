@@ -24,6 +24,7 @@ set(LIBJILL_SOURCES
 	field.cc
 	# table.cc # table.cc has no symbols yet. so not included.
 	# xcode's ranlib tool may warn us about that
+	query.cc
 )
 
 # build internal library
