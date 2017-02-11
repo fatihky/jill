@@ -20,13 +20,35 @@
 #include "field.hh"
 
 // using namespace jill::table;
+using namespace std;
 
 namespace jill {
 namespace table {
 
 template <>
 Field<TIMESTAMP, int64_t>::Field(std::string name):
-  	type_(TIMESTAMP), name_(name) {
+    type_(TIMESTAMP), name_(name) {
+}
+
+template <>
+Field<DIMENSION, string>::Field(string name):
+    type_(TIMESTAMP), name_(name) {
+}
+
+template <>
+Field<BOOL, bool>::Field(string name):
+    type_(BOOL), name_(name) {
+  roar_ = new Roaring();
+}
+
+template <>
+Field<METRIC_INT, int>::Field(string name):
+    type_(TIMESTAMP), name_(name) {
+}
+
+template <>
+Field<METRIC_FLOAT, float>::Field(string name):
+    type_(TIMESTAMP), name_(name) {
 }
 
 } // namespace table

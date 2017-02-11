@@ -20,12 +20,19 @@
 #include "table.hh"
 
 using namespace jill::table;
+using namespace std;
 
 int main(int argc, char *argv[]) {
-	jill::table::Table table;
-	jill::table::Field<jill::table::TIMESTAMP, int64_t> *timestamp = new jill::table::Field<jill::table::TIMESTAMP, int64_t>("timestamp");
+  jill::table::Table table;
+  jill::table::Field<jill::table::TIMESTAMP, int64_t> *timestamp = new jill::table::Field<jill::table::TIMESTAMP, int64_t>("timestamp");
+  Field<DIMENSION, string> *country = new Field<DIMENSION, string>("country");
+  Field<BOOL, bool> *isClick = new Field<BOOL, bool>("isClick");
+  Field<METRIC_FLOAT, float> *price = new Field<METRIC_FLOAT, float>("price");
 
-	table.addField<TIMESTAMP, int64_t>(timestamp);
+  table.addField<TIMESTAMP, int64_t>(timestamp);
+  table.addField<DIMENSION, string>(country);
+  table.addField<BOOL, bool>(isClick);
+  table.addField<METRIC_FLOAT, float>(price);
 
-	return 0;
+  return 0;
 }
