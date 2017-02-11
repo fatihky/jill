@@ -19,6 +19,9 @@
 
 #include "field.hh"
 
+#ifndef JILL_TABLE_HEADER_INCLUDED
+#define JILL_TABLE_HEADER_INCLUDED
+
 namespace jill {
 namespace table {
 
@@ -37,3 +40,5 @@ class Table {
 
 } // namespace table
 } // namespace jill
+
+#endif // JILL_TABLE_HEADER_INCLUDED
