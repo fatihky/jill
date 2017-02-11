@@ -23,4 +23,6 @@
 cmake_minimum_required (VERSION 2.8.11)
 project (jill C CXX)
 
+include_directories(/usr/local/include)
+
 add_subdirectory(src)

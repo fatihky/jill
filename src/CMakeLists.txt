@@ -20,8 +20,6 @@
 #   IN THE SOFTWARE.
 #
 
-include_directories(/usr/local/include)
-
 set(LIBJILL_SOURCES
 	field.cc
 	# table.cc # table.cc has no symbols yet. so not included.
