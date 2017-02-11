@@ -1,0 +1,12 @@
+{
+  "name": "jill",
+  "version": "0.0.1",
+  "repo": "fatihky/jill",
+  "description": "jill analytics data store",
+  "keywords": [],
+  "license": "MIT",
+  "src": [],
+  "dependencies": {
+  	"stephenmathieson/describe.h": "*"
+  }
+}
