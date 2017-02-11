@@ -31,4 +31,4 @@ add_library(${PROJECT_NAME} STATIC ${LIBJILL_SOURCES})
 
 # build server executable
 add_executable(server server.cc)
-target_link_libraries(server ${PROJECT_NAME})
+target_link_libraries(server ${PROJECT_NAME} roaring)
