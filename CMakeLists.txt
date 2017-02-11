@@ -26,3 +26,15 @@ project (jill C CXX)
 include_directories(/usr/local/include)
 
 add_subdirectory(src)
+
+# testing
+
+enable_testing()
+
+macro(jill_add_test TEST_NAME)
+	add_executable(${TEST_NAME} src/test/${TEST_NAME}.cc)
+	target_link_libraries(${TEST_NAME} ${PROJECT_NAME})
+	add_test(NAME ${TEST_NAME} COMMAND ./${TEST_NAME})
+endmacro(jill_add_test)
+
+jill_add_test(table_test)
