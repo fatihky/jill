@@ -25,6 +25,10 @@ using namespace std;
 namespace jill {
 namespace table {
 
+////////////////////////////////////////////////////////
+/////// constructor implementations
+////////////////////////////////////////////////////////
+
 template <>
 Field<TIMESTAMP, int64_t>::Field(std::string name):
     type_(TIMESTAMP), name_(name) {
@@ -49,6 +53,48 @@ Field<METRIC_INT, int>::Field(string name):
 template <>
 Field<METRIC_FLOAT, float>::Field(string name):
     type_(TIMESTAMP), name_(name) {
+}
+
+////////////////////////////////////////////////////////
+/////// insert implementations
+////////////////////////////////////////////////////////
+
+template<>
+void Field<TIMESTAMP, int64_t>::insert(int64_t &val) {
+  vals.push_back(val);
+
+  count_++;
+}
+
+template<>
+void Field<DIMENSION, string>::insert(string &val) {
+  Roaring *roar;
+
+  if (dict_.count(val) > 0) {
+    roar = dict_[val];
+  } else {
+    roar = new Roaring();
+    dict_[val] = roar;
+  }
+  roar->add(count_);
+
+  count_++;
+}
+
+template<>
+void Field<BOOL, bool>::insert(bool &val) {
+  if (val) {
+    roar_->add((uint32_t)count_);
+  }
+
+  count_++;
+}
+
+template<>
+void Field<METRIC_FLOAT, float>::insert(float &val) {
+  vals.push_back(val);
+
+  count_++;
 }
 
 } // namespace table
