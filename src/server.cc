@@ -34,5 +34,16 @@ int main(int argc, char *argv[]) {
   table.addField<BOOL, bool>(isClick);
   table.addField<METRIC_FLOAT, float>(price);
 
+  // insert values
+  int64_t ts = 1;
+  string countryTR = "turkey";
+  bool isClickVal = false;
+  float priceVal = 1.99;
+
+  timestamp->insert(ts);
+  country->insert(countryTR);
+  isClick->insert(isClickVal);
+  price->insert(priceVal);
+
   return 0;
 }
