@@ -10,11 +10,19 @@ using namespace std;
 namespace jill {
 namespace query {
 
-class Filter {
+enum FilterType {
+  EQUAL,
+  NOT_EQUAL
+};
+
+class FilterBase {};
+
+template <FilterType filterType>
+class Filter : public FilterBase {
  private:
- 	string rval;
- 	string lval;
- 	string op;
+  string rval;
+  FilterType type;
+  string op;
 };
 
 class GroupBy {
@@ -36,14 +44,14 @@ class QueryResult {
 	private:
   Roaring *filterResult;
   GroupByResult groupByResult;
-}
+};
 
 // / QUERY RESULTS
 
 class Query {
  private:
 	// filters
-	vector<Filter> filters;
+	vector<FilterBase> filters;
 	// groupings
 	vector<GroupBy> groupings;
 	// aggregations
@@ -54,7 +62,7 @@ class Query {
 	QueryResult result;
  public:
 	Query() {}
-	void addFilter(Filter filter);
+	void addFilter(FilterBase filter);
 };
 
 } // namespace query
