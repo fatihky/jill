@@ -25,6 +25,21 @@ class Aggeration {};
 
 class PostAggregation {};
 
+// QUERY RESULTS
+
+class GroupByResult {
+	string key;
+	Roaring *bm;
+};
+
+class QueryResult {
+	private:
+  Roaring *filterResult;
+  GroupByResult groupByResult;
+}
+
+// / QUERY RESULTS
+
 class Query {
  private:
 	// filters
@@ -35,6 +50,8 @@ class Query {
 	vector<Aggeration> aggregations;
 	// post-aggregations
 	vector<PostAggregation> postAggregations;
+	// query result
+	QueryResult result;
  public:
 	Query() {}
 	void addFilter(Filter filter);
