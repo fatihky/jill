@@ -21,6 +21,7 @@
 #include <vector>
 #include <string>
 #include "roaring.hh"
+#include "query.h"
 
 #ifndef JILL_FIELD_HEADER_INCLUDED
 #define JILL_FIELD_HEADER_INCLUDED
@@ -76,6 +77,11 @@ class Field : FieldBase {
   		throw std::runtime_error("can not get roaring bitmap of the non-bool fields");
     return roar_;
   }
+
+  /////////////////////////
+  ////// querying
+  /////////////////////////
+  Roaring *applyFilter(Filter *filter);
 };
 
 } // namespace table
