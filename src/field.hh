@@ -21,13 +21,15 @@
 #include <vector>
 #include <string>
 #include "roaring.hh"
-#include "query.h"
+#include "query.hh"
 
 #ifndef JILL_FIELD_HEADER_INCLUDED
 #define JILL_FIELD_HEADER_INCLUDED
 
 namespace jill {
 namespace table {
+
+using namespace jill::query;
 
 class FieldBase {};
 
@@ -81,7 +83,8 @@ class Field : FieldBase {
   /////////////////////////
   ////// querying
   /////////////////////////
-  Roaring *applyFilter(Filter *filter);
+  template<FilterType type>
+  Roaring *applyFilter(Filter<type> *filter);
 };
 
 } // namespace table
