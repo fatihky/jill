@@ -3,7 +3,7 @@
 namespace jill {
 namespace query {
 
-void Query::addFilter(FilterBase filter) {
+void Query::addFilter(Filter filter) {
 	filters.push_back(filter);
 }
 

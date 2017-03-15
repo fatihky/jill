@@ -15,9 +15,7 @@ enum FilterType {
   NOT_EQUAL
 };
 
-class FilterBase {};
-
-class Filter : public FilterBase {
+class Filter {
  private:
   string rval;
   string lval;
@@ -53,7 +51,7 @@ class QueryResult {
 class Query {
  private:
 	// filters
-	vector<FilterBase> filters;
+	vector<Filter> filters;
 	// groupings
 	vector<GroupBy> groupings;
 	// aggregations
@@ -64,7 +62,7 @@ class Query {
 	QueryResult result;
  public:
 	Query() {}
-	void addFilter(FilterBase filter);
+	void addFilter(Filter filter);
 };
 
 } // namespace query
