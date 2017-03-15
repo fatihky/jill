@@ -22,6 +22,9 @@ class Filter : public FilterBase {
   string rval;
   FilterType type;
   string op;
+ public:
+  Filter(string rval_, FilterType type_, string op_):
+    rval(rval_), type(type_), op(op_) {}
 };
 
 class GroupBy {
