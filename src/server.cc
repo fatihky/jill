@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
   // query the table
   //////////////////////////////////
   Query query;
-  // filters
+  // add filters
   Filter filter1("isClick", "true", EQUAL);
   Filter filter2("country", "turkey", EQUAL);
   query.addFilter(&filter1);
