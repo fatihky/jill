@@ -16,11 +16,11 @@ enum FilterType {
 };
 
 class Filter {
- private:
+ public:
   string field;
   string lval;
   FilterType op;
- public:
+
   Filter(string field_, string lval, FilterType op_):
     field(field_), lval(lval), op(op_) {}
 };
