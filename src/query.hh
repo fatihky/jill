@@ -17,12 +17,12 @@ enum FilterType {
 
 class Filter {
  private:
-  string rval;
+  string field;
   string lval;
   FilterType op;
  public:
-  Filter(string rval_, string lval, FilterType op_):
-    rval(rval_), lval(lval), op(op_) {}
+  Filter(string field_, string lval, FilterType op_):
+    field(field_), lval(lval), op(op_) {}
 };
 
 class GroupBy {
