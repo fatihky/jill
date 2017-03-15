@@ -18,9 +18,12 @@
 */
 
 #include "field.hh"
+#include "query.hh"
 
 #ifndef JILL_TABLE_HEADER_INCLUDED
 #define JILL_TABLE_HEADER_INCLUDED
+
+using namespace jill::query;
 
 namespace jill {
 namespace table {
@@ -36,6 +39,8 @@ class Table {
     }
     fields[field->name()] = (FieldBase *)field;
   }
+
+  void executeQuery(Query &query);
 };
 
 } // namespace table

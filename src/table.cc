@@ -22,5 +22,7 @@
 namespace jill {
 namespace table {
 
+void Table::executeQuery(Query &query) {}
+
 } // namespace table
 } // namespace jill

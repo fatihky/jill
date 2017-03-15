@@ -45,5 +45,15 @@ int main(int argc, char *argv[]) {
   isClick->insert(isClickVal);
   price->insert(priceVal);
 
+  //////////////////////////////////
+  // query the table
+  //////////////////////////////////
+  Query query;
+  // filters
+  Filter filter1("isClick", "true", EQUAL);
+  Filter filter2("country", "turkey", EQUAL);
+  query.addFilter(&filter1);
+  query.addFilter(&filter2);
+
   return 0;
 }
