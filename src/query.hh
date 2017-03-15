@@ -17,7 +17,6 @@ enum FilterType {
 
 class FilterBase {};
 
-template <FilterType filterType>
 class Filter : public FilterBase {
  private:
   string rval;

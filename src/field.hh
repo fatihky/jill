@@ -83,8 +83,7 @@ class Field : FieldBase {
   /////////////////////////
   ////// querying
   /////////////////////////
-  template<FilterType type>
-  Roaring *applyFilter(Filter<type> *filter);
+  Roaring *applyFilter(Filter *filter);
 };
 
 } // namespace table
