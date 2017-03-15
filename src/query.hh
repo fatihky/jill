@@ -20,11 +20,11 @@ class FilterBase {};
 class Filter : public FilterBase {
  private:
   string rval;
-  FilterType type;
-  string op;
+  string lval;
+  FilterType op;
  public:
-  Filter(string rval_, FilterType type_, string op_):
-    rval(rval_), type(type_), op(op_) {}
+  Filter(string rval_, string lval, FilterType op_):
+    rval(rval_), lval(lval), op(op_) {}
 };
 
 class GroupBy {
