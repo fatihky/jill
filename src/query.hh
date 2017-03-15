@@ -51,7 +51,7 @@ class QueryResult {
 class Query {
  private:
 	// filters
-	vector<Filter> filters;
+	vector<Filter *> filters;
 	// groupings
 	vector<GroupBy> groupings;
 	// aggregations
@@ -62,7 +62,7 @@ class Query {
 	QueryResult result;
  public:
 	Query() {}
-	void addFilter(Filter filter);
+	void addFilter(Filter *filter);
 };
 
 } // namespace query
