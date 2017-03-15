@@ -55,5 +55,7 @@ int main(int argc, char *argv[]) {
   query.addFilter(&filter1);
   query.addFilter(&filter2);
 
+  table.executeQuery(query);
+
   return 0;
 }
